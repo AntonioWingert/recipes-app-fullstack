@@ -1,13 +1,13 @@
 import { useState } from 'react';
+import { requestData } from '../api/requests';
 
 function useFetch() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const makeFetch = async (url) => {
+  const makeFetch = async (endpoint) => {
     setIsLoading(true);
     try {
-      const res = await fetch(url);
-      const data = await res.json();
+      const data = await requestData(endpoint);
       return data;
     } catch (error) {
       throw new Error(`Ocorreu um erro, por favor tente novamente mais tarde. ${error}`);

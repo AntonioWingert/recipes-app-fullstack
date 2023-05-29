@@ -3,6 +3,7 @@ import DrinksController from '../controllers/DrinksController';
 
 const DrinksRouter = Router();
 
+DrinksRouter.get('/drinks/:id', (req, res) => DrinksController.getById(req, res));
 DrinksRouter.get('/drinks/name', (req, res) => DrinksController.getAll(req, res));
 DrinksRouter.get('/drinks/letter', (req, res) => DrinksController.findByFirstLetter(req, res));
 DrinksRouter.get('/drinks/random', (req, res) => DrinksController.getRandom(req, res));

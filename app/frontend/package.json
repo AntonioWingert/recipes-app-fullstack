@@ -1,11 +1,12 @@
 {
-  "name": "recipes-app-test",
+  "name": "recipes-app-fullstack-frontend",
   "version": "1.0.0",
   "private": true,
   "engines": {
     "node": "16 || 18"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "clipboard-copy": "^4.0.1",
     "prop-types": "^15.8.1",

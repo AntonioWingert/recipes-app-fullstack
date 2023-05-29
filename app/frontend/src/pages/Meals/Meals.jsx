@@ -24,12 +24,12 @@ function Meals() {
   const { filterRecipes, setRecipes, setCategoryOnState, category } = useRecipes();
 
   useEffect(() => {
-    setRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
-    setCategoryOnState('https://www.themealdb.com/api/json/v1/1/list.php?c=list', 'meals');
+    setRecipes('/meals/name');
+    setCategoryOnState('/meals/categories');
   }, []);
 
   const resetRecipes = () => {
-    setRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
+    setRecipes('/meals/name');
   };
 
   return (
@@ -46,9 +46,9 @@ function Meals() {
           category && category.map((item, index) => (
             <CategoryBtn
               key={ index }
-              category={ item.strCategory }
+              category={ item.name }
               icon={ meals[index] }
-              type="meals"
+              type="Meal"
             />)).slice(0, MAX_CATEGORY)
         }
       </S.CategoryContainer>
@@ -58,9 +58,9 @@ function Meals() {
             <Recipes
               key={ index }
               index={ index }
-              img={ recipe.strMealThumb }
-              name={ recipe.strMeal }
-              id={ recipe.idMeal }
+              img={ recipe.imageUrl }
+              name={ recipe.name }
+              id={ recipe.id }
               type="meals"
             />
           )).slice(0, MAX_LENGTH)

@@ -10,12 +10,12 @@ function CategoryBtn({ category, type, icon }) {
   const handleClick = () => {
     if (isActive) {
       setIsActive(false);
-      if (type === 'drinks') return setRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks');
-      if (type === 'meals') return setRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
+      if (type === 'Drink') return setRecipes('/drinks/categories');
+      if (type === 'Meal') return setRecipes('/meals/categories');
     }
     setIsActive(true);
-    if (type === 'meals') return setRecipes(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`, type);
-    if (type === 'drinks') return setRecipes(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`, type);
+    if (type === 'Meal') return setRecipes(`/meals/categories?q=${category}`);
+    if (type === 'Drink') return setRecipes(`/drinks/categories?q=${category}`);
   };
 
   return (

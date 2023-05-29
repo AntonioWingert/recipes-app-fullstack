@@ -31,12 +31,12 @@ function RecipeDetails() {
   const { startRecipe, setFavorite, removeFavorite } = useSetLocalStorage(type, id);
 
   useEffect(() => {
-    if (type === 'drinks') {
+    if (type === 'drink') {
       setRecipeDetail(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`, type);
       setRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
       return;
     }
-    if (type === 'meals') {
+    if (type === 'meal') {
       setRecipeDetail(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`, type);
       setRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks');
     }

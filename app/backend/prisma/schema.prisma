@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Category {
-  id      Int   @id @unique @default(autoincrement())
+  id      Int      @id @unique @default(autoincrement())
   name    String
   type    String
   recipes Recipe[]
@@ -17,7 +17,7 @@ model Category {
 }
 
 model Area {
-  id      Int   @id @unique @default(autoincrement())
+  id      Int      @id @unique @default(autoincrement())
   name    String
   recipes Recipe[]
 
@@ -25,16 +25,16 @@ model Area {
 }
 
 model Ingredient {
-  id      Int   @id @unique @default(autoincrement())
+  id               Int                @id @unique @default(autoincrement())
   name             String
-  type String
+  type             String
   recipeIngredient RecipeIngredient[]
 
   @@map("ingredients")
 }
 
 model Alcoholic {
-  id      Int   @id @unique @default(autoincrement())
+  id      Int      @id @unique @default(autoincrement())
   name    String
   recipes Recipe[]
 
@@ -42,7 +42,7 @@ model Alcoholic {
 }
 
 model Recipe {
-  id      Int   @id @unique @default(autoincrement())
+  id           Int    @id @unique @default(autoincrement())
   type         String
   name         String
   instructions String @db.Text
@@ -51,14 +51,14 @@ model Recipe {
   category   Category @relation(fields: [categoryId], references: [id])
 
   areaId Int?
-  area   Area?   @relation(fields: [areaId], references: [id])
+  area   Area? @relation(fields: [areaId], references: [id])
 
   alcoholicId Int?
   alcoholic   Alcoholic? @relation(fields: [alcoholicId], references: [id])
 
   videoUrl String?
   imageUrl String?
-  tags String?
+  tags     String?
 
   ingredients RecipeIngredient[]
 

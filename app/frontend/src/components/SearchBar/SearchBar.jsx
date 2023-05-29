@@ -27,11 +27,11 @@ function SearchBar({ pathname }) {
     event.preventDefault();
     let url;
 
-    if (pathname === '/meals') url = 'https://www.themealdb.com/api/json/v1/1/';
-    if (pathname === '/drinks') url = 'https://www.thecocktaildb.com/api/json/v1/1/';
-    if (filter === 'ingredient') url += `filter.php?i=${input}`;
-    if (filter === 'name') url += `search.php?s=${input}`;
-    if (filter === 'first-letter') url += `search.php?f=${input}`;
+    if (pathname === '/meals') url = '/meals';
+    if (pathname === '/drinks') url = '/drinks';
+    if (filter === 'ingredient') url += `/ingredients?q=${input}`;
+    if (filter === 'name') url += `/name?q=${input}`;
+    if (filter === 'first-letter') url += `/letter?q=${input}`;
     if (filter === 'first-letter' && input.length > 1) {
       return global
         .alert('Your search must have only 1 (one) character');

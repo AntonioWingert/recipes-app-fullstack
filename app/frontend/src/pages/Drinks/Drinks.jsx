@@ -28,12 +28,12 @@ function Drinks() {
   const { filterRecipes, setRecipes, setCategoryOnState, category } = useRecipes();
 
   useEffect(() => {
-    setRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks');
-    setCategoryOnState('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', 'drinks');
+    setRecipes('/drinks/name');
+    setCategoryOnState('/drinks/categories');
   }, []);
 
   const resetRecipes = () => {
-    setRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks');
+    setRecipes('/drinks/name');
   };
 
   return (
@@ -50,7 +50,7 @@ function Drinks() {
           category && category.map((item, index) => (
             <CategoryBtn
               key={ index }
-              category={ item.strCategory }
+              category={ item.name }
               icon={ drinks[index] }
               type="drinks"
             />)).slice(0, MAX_CATEGORY)
@@ -62,9 +62,9 @@ function Drinks() {
             <Recipes
               key={ index }
               index={ index }
-              img={ recipe.strDrinkThumb }
-              name={ recipe.strDrink }
-              id={ recipe.idDrink }
+              img={ recipe.imageUrl }
+              name={ recipe.name }
+              id={ recipe.id }
               type="drinks"
             />
           )).slice(0, MAX_LENGTH)

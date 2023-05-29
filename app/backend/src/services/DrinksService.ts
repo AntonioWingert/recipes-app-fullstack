@@ -2,6 +2,19 @@ import prismaClient from '../database/prismaClient';
 import ApiError from '../utils/ApiError';
 
 export default class DrinksService {
+
+  static async findOneById(id: string) {
+    const drink = await prismaClient.recipe.findUnique({
+      where: {
+        id: parseInt(id).toString()
+      }
+    })
+
+    if (drink === null) throw new ApiError(401, 'Invalid ID!');
+
+    return drink;
+  }
+
   static async getAllDrinks() {
     const drinks = await prismaClient.recipe.findMany({
       where: {
@@ -11,11 +24,10 @@ export default class DrinksService {
         ingredients: true,
       }
     });
-[]
     return drinks;
   }
 
-  static async findOneRandom(id: number) {
+  static async findOneRandom(id: string) {
     const randomDrink = await prismaClient.recipe.findMany({
       where: {
         id
@@ -30,20 +42,32 @@ export default class DrinksService {
   static async getAllDrinksCategories() {
     const categories = await prismaClient.category.findMany({
       where: {
-        type: 'Drink',
+        recipes: {
+          some: {
+            type: 'Drink'
+          }
+        }
       }
     });
 
     return categories;
   }
 
-  static async getAllDrinksIngredients() {
-    const ingredients = await prismaClient.ingredient.findMany({
+  static async getAllDrinksIngredients(query?: string) {
+    const recipesContainIngredient = await prismaClient.recipe.findMany({
       where: {
-        type: 'Drink',
+        ingredients: {
+          some: {
+            ingredient: {
+              name: {
+                contains: query
+              }
+            }
+          }
+        }
       }
     })
 
-    return ingredients;
+    return recipesContainIngredient;
   }
 }
