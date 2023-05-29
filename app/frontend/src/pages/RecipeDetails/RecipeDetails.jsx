@@ -69,7 +69,6 @@ function RecipeDetails() {
 
   return (
     <div>
-      {console.log(recipe)}
       <S.ButtonsContainer>
         <Button
           handleClick={ isFav ? removeFav : handleFavorite }

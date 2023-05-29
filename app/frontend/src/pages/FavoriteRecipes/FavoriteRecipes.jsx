@@ -106,6 +106,7 @@ function FavoriteRecipes() {
             ))
           )
         }
+        {console.log(getItems)}
       </S.RecipesContainer>
 
     </div>

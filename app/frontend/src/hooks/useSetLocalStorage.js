@@ -68,24 +68,24 @@ function useSetLocalStorage(type, id) {
 
     if (type === 'meals') {
       const newFavoriteRecipes = [...favoriteRecipes, {
-        id: recipe.idMeal,
+        id: recipe.id,
         type: 'meal',
-        nationality: recipe.strArea,
-        category: recipe.strCategory,
+        nationality: recipe.area?.name,
+        category: recipe.category?.name,
         alcoholicOrNot: '',
-        name: recipe.strMeal,
-        image: recipe.strMealThumb,
+        name: recipe.name,
+        image: recipe.imageUrl,
       }];
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
     } else {
       const newFavoriteRecipes = [...favoriteRecipes, {
-        id: recipe.idDrink,
+        id: recipe.id,
         type: 'drink',
         nationality: '',
-        category: recipe.strCategory,
-        alcoholicOrNot: recipe.strAlcoholic,
-        name: recipe.strDrink,
-        image: recipe.strDrinkThumb,
+        category: recipe.category?.name,
+        alcoholicOrNot: recipe.alcoholic,
+        name: recipe.name,
+        image: recipe.imageUrl,
       }];
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
     }
