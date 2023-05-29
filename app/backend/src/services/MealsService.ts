@@ -76,7 +76,7 @@ export default class MealsService {
   }
 
   static async getAllIngredients() {
-    const ingredients = await prismaClient.ingredient.findMany({
+    const ingredients = await prismaClient.recipe.findMany({
       where: {
         type: 'Meal',
       }

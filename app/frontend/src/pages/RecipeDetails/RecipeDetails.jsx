@@ -30,12 +30,13 @@ function RecipeDetails() {
 
   useEffect(() => {
     if (type === 'drinks') {
-      setRecipeDetail(`http://localhost:3001/drinks/${id}`);
-      setRecipes('http://localhost:3001/meals/name');
+      setRecipeDetail(`/drinks/${id}`);
+      setRecipes('/meals/name');
       return;
     }
     if (type === 'meals') {
       setRecipeDetail(`/meals/${id}`);
+      setRecipes('/drinks/name');
     }
   }, []);
 

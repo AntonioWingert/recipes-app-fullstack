@@ -2,26 +2,19 @@ import prismaClient from '../database/prismaClient';
 import ApiError from '../utils/ApiError';
 
 export default class DrinksService {
-
-  static async findOneById(id: number) {
-    const drink = await prismaClient.recipe.findUnique({
-      where: {
-        id
-      }
-    })
-
-    if (drink === null) throw new ApiError(401, 'Invalid ID!');
-
-    return drink;
-  }
-
   static async getAllDrinks() {
     const drinks = await prismaClient.recipe.findMany({
       where: {
         type: 'Drink'
       },
       include: {
-        ingredients: true,
+        ingredients: {
+          include: {
+            ingredient: true,
+          }
+        },
+        category: true,
+        alcoholic: true,
       }
     });
     return drinks;
@@ -30,8 +23,14 @@ export default class DrinksService {
   static async findOneRandom(id: number) {
     const randomDrink = await prismaClient.recipe.findMany({
       where: {
-        id
+        id,
+        type: 'Meal',
       },
+      include: {
+        ingredients: true,
+        category: true,
+        area: true,
+      }
     });
 
     if (!randomDrink) throw new ApiError(401, 'Invalid ID!');
@@ -41,12 +40,8 @@ export default class DrinksService {
 
   static async getAllDrinksCategories() {
     const categories = await prismaClient.category.findMany({
-      where: {
-        recipes: {
-          some: {
-            type: 'Drink'
-          }
-        }
+      where: { 
+        type: 'Drink'
       }
     });
 
@@ -54,20 +49,33 @@ export default class DrinksService {
   }
 
   static async getAllDrinksIngredients(query?: string) {
-    const recipesContainIngredient = await prismaClient.recipe.findMany({
+    const ingredients = await prismaClient.recipe.findMany({
       where: {
-        ingredients: {
-          some: {
-            ingredient: {
-              name: {
-                contains: query
-              }
-            }
-          }
-        }
+        type:'Drink',
       }
     })
 
-    return recipesContainIngredient;
+    return ingredients;
+  }
+
+  static async findOneById(id: number) {
+    const drink = await prismaClient.recipe.findUnique({
+      where: {
+        id
+      },
+      include: {
+        ingredients: {
+          include: {
+            ingredient: true,
+          }
+        },
+        category: true,
+        area: true,
+      }
+    });
+
+    if (drink === null) throw new ApiError(401, 'Invalid ID!');
+
+    return drink;
   }
 }

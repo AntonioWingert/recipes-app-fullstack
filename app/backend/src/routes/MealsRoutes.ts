@@ -12,4 +12,5 @@ router.get('/meals/areas', MealsController.getAllAreas);
 router.get('/meals/ingredients', MealsController.getAllIngredients);
 router.get('/meals/:id', MealsController.findById);
 
+
 export default router;
