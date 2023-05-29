@@ -23,33 +23,31 @@ function DoneAndFavCard({
 
   return (
     <S.DoneContainer>
-      <Link to={ `/${type}s/${id}` }>
+      <Link to={`/${type}s/${id}`}>
         <img
-          src={ image }
+          src={image}
           alt="imagem da receita"
-          data-testid={ `${index}-horizontal-image` }
-          width={ 250 }
-          height={ 200 }
+          data-testid={`${index}-horizontal-image`}
+          width={250}
+          height={200}
         />
-        <h1 data-testid={ `${index}-horizontal-name` }>{name}</h1>
+        <h1 data-testid={`${index}-horizontal-name`}>{name}</h1>
       </Link>
       <p
-        data-testid={ `${index}-horizontal-top-text` }
+        data-testid={`${index}-horizontal-top-text`}
       >
         {type === 'meal' ? `${nationality} - ${category}`
           : `${alcoholic}`}
       </p>
       {doneDate ? (
-        <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+        <p data-testid={`${index}-horizontal-done-date`}>{doneDate}</p>
       ) : null}
-      { tags ? tags.map((tag) => (
-        <p
-          data-testid={ `${index}-${tag}-horizontal-tag` }
-          key={ tag }
-        >
-          {tag}
-        </p>
-      )) : null }
+      <p
+        data-testid={`${index}-${tags}-horizontal-tag`}
+        key={tags}
+      >
+        {tags}
+      </p>
       {isCopy && (
         <div>
           <span>Link copied!</span>
@@ -58,9 +56,9 @@ function DoneAndFavCard({
       {
         done ? (
           <Button
-            handleClick={ handleShare }
+            handleClick={handleShare}
             alt="share button"
-            id={ `${index}-horizontal-share-btn` }
+            id={`${index}-horizontal-share-btn`}
             color="secondary"
             size="35px"
           >
@@ -69,18 +67,18 @@ function DoneAndFavCard({
         ) : (
           <>
             <Button
-              handleClick={ handleFavorite }
+              handleClick={handleFavorite}
               alt="share button"
-              id={ `${index}-horizontal-favorite-btn` }
+              id={`${index}-horizontal-favorite-btn`}
               color="secondary"
               size="35px"
             >
               <MdFavorite />
             </Button>
             <Button
-              handleClick={ handleShare }
+              handleClick={handleShare}
               alt="share button"
-              id={ `${index}-horizontal-share-btn` }
+              id={`${index}-horizontal-share-btn`}
               color="secondary"
               size="35px"
             >
@@ -99,7 +97,7 @@ DoneAndFavCard.propTypes = {
   category: PropTypes.string,
   doneDate: PropTypes.string,
   index: PropTypes.number,
-  tags: PropTypes.arrayOf(PropTypes.string),
+  tags: PropTypes.string,
   type: PropTypes.string.isRequired,
   nationality: PropTypes.string,
   alcoholic: PropTypes.string,
@@ -118,7 +116,7 @@ DoneAndFavCard.defaultProps = {
   nationality: '',
   alcoholic: '',
   done: false,
-  isFav: () => {},
+  isFav: () => { },
 };
 
 export default DoneAndFavCard;

@@ -18,9 +18,11 @@ function RecipeProgressCard({
 
   useEffect(() => {
     if (!ingredientsChecked) return;
-    const newIngredient = ingredients.map((e) => ingredientsChecked.includes(e));
+    const listIngredientsIds = ingredients.map((e) => e.ingredientId);
+    const listLocalStorageIds = ingredientsChecked.map((e) => e.ingredientId);
+    const newIngredient = listIngredientsIds.map((e) => listLocalStorageIds.includes(e));
     setCheckedIngredient(newIngredient);
-  }, [ingredients]);
+  }, [ingredients, ingredientsChecked]);
 
   useEffect(() => {
     verifyIsFinish(checkedIngredient);
@@ -29,11 +31,15 @@ function RecipeProgressCard({
   const handleChange = (ingredient) => {
     const getItems = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const newItem = getItems;
-    newItem[type][id].push(ingredient);
+    newItem[type][+id].push(ingredient);
     localStorage.setItem('inProgressRecipes', JSON.stringify(newItem));
 
-    const newIngredient = ingredients.map((e) => getItems[type][id].includes(e));
-    setCheckedIngredient(newIngredient);
+    const listIngredientsIds = ingredients.map((e) => e.ingredientId);
+    setCheckedIngredient((prev) => {
+      const newChecked = [...prev];
+      newChecked[listIngredientsIds.indexOf(ingredient.ingredientId)] = true;
+      return newChecked;
+      });
   };
 
   return (

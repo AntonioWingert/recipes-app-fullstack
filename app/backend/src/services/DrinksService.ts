@@ -23,7 +23,7 @@ export default class DrinksService {
   static async findOneRandom(id: number) {
     const randomDrink = await prismaClient.recipe.findMany({
       where: {
-        id,
+        id: String(id),
         type: 'Drink',
       },
       include: {
@@ -41,7 +41,11 @@ export default class DrinksService {
   static async getAllDrinksCategories() {
     const categories = await prismaClient.category.findMany({
       where: { 
-        type: 'Drink'
+        recipes: {
+          some: {
+            type: 'Drink'
+          }
+        }
       }
     });
 
@@ -71,6 +75,7 @@ export default class DrinksService {
         },
         category: true,
         area: true,
+        alcoholic: true,
       }
     });
 

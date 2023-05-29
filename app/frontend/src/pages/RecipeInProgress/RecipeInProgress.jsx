@@ -90,7 +90,7 @@ function RecipeInProgress() {
         title={ recipe.name }
         instructions={ recipe.instructions }
         image={ recipe.imageUrl }
-        categoryOrAlcoholic={ recipe.alcoholic || recipe.category?.name }
+        categoryOrAlcoholic={ recipe.alcoholic?.name || recipe.category?.name }
         verifyIsFinish={ verifyIsFinish }
       />
       <S.ButtonContainer>

@@ -74,7 +74,7 @@ function DoneRecipes() {
                 doneDate={ recipe.doneDate }
                 category={ recipe.category }
                 key={ index }
-                alcoholic={ recipe.alcoholic }
+                alcoholic={ recipe.alcoholicOrNot }
                 nationality={ recipe.nationality }
                 type={ recipe.type }
                 id={ recipe.id }

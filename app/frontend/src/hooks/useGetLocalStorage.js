@@ -16,38 +16,29 @@ function useGetLocalStorage(type, id) {
       const inProgressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (type === 'meals') {
         const inProgressMeal = inProgressRecipe.meals;
-        if (inProgressMeal[id]) setInProgress(true);
+        if (inProgressMeal[+id]) setInProgress(true);
       } else {
         const inProgressDrinks = inProgressRecipe.drinks;
-        if (inProgressDrinks[id]) setInProgress(true);
+        if (inProgressDrinks[+id]) setInProgress(true);
       }
     }
   }, [id, type]);
 
   useEffect(() => {
     const getItems = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (getItems[type][id] === undefined) {
-      getItems[type][`${id}`] = [];
+    if (getItems[type][+id] === undefined) {
+      getItems[type][`${+id}`] = [];
       localStorage.setItem('inProgressRecipes', JSON.stringify(getItems));
       return;
     }
-    setIngredientsChecked(getItems[type][id]);
+    setIngredientsChecked(getItems[type][+id]);
   }, [id, type]);
 
   useEffect(() => {
     if (localStorage.getItem('favoriteRecipes')) {
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (type === 'meals') {
-        const favoriteMeals = favoriteRecipes
-          .filter((recipes) => recipes.type === 'meals');
-        const favoriteMealIds = favoriteMeals.map((recipes) => recipes.id);
-        if (favoriteMealIds.includes(id)) setIsFavorite(true);
-      } else {
-        const favoriteDrinks = favoriteRecipes
-          .filter((recipes) => recipes.type === 'drinks');
-        const favoriteDrinkIds = favoriteDrinks.map((recipes) => recipes.id);
-        if (favoriteDrinkIds.includes(id)) setIsFavorite(true);
-      }
+      const favRecipes = favoriteRecipes.map((recipes) => recipes.id);
+      if (favRecipes.includes(+id)) setIsFavorite(true);
     }
   }, [id, type]);
 

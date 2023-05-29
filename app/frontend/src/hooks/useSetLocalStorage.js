@@ -9,14 +9,14 @@ function useSetLocalStorage(type, id) {
   const history = useHistory();
 
   const startRecipe = () => {
-    const { idDrink, idMeal } = recipe;
+    const { id } = recipe;
     if (type === 'meals') {
       const inProgressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
       const newInProgressRecipes = {
         ...inProgressRecipe,
         meals: {
           ...inProgressRecipe.meals,
-          [idMeal]: [],
+          [id]: [],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(newInProgressRecipes));
@@ -28,7 +28,7 @@ function useSetLocalStorage(type, id) {
         ...inProgressRecipe,
         drinks: {
           ...inProgressRecipe.drinks,
-          [idDrink]: [],
+          [id]: [],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(newInProgressRecipes));
@@ -39,15 +39,15 @@ function useSetLocalStorage(type, id) {
 
   const finishRecipe = () => {
     const recipeData = {
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      category: recipe.strCategory,
+      alcoholicOrNot: recipe.alcoholic?.name || '',
+      category: recipe.category?.name || '',
       doneDate: new Date().toISOString(),
-      id: type === 'meals' ? recipe.idMeal : recipe.idDrink,
-      image: type === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb,
-      name: type === 'meals' ? recipe.strMeal : recipe.strDrink,
-      nationality: recipe.strArea || '',
-      tags: recipe.strTags ? recipe.strTags.split(',') : [],
-      type: type === 'meals' ? 'meal' : 'drink',
+      id: recipe.id,
+      image: recipe.imageUrl,
+      name: recipe.name,
+      nationality: recipe.area?.name || '',
+      tags: recipe.tags || [],
+      type: recipe.type,
     };
     if (JSON.parse(localStorage.getItem('doneRecipes'))) {
       const doneRecipesArray = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -65,44 +65,24 @@ function useSetLocalStorage(type, id) {
     }
 
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-    if (type === 'meals') {
-      const newFavoriteRecipes = [...favoriteRecipes, {
-        id: recipe.id,
-        type: 'meal',
-        nationality: recipe.area?.name,
-        category: recipe.category?.name,
-        alcoholicOrNot: '',
-        name: recipe.name,
-        image: recipe.imageUrl,
-      }];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
-    } else {
-      const newFavoriteRecipes = [...favoriteRecipes, {
-        id: recipe.id,
-        type: 'drink',
-        nationality: '',
-        category: recipe.category?.name,
-        alcoholicOrNot: recipe.alcoholic,
-        name: recipe.name,
-        image: recipe.imageUrl,
-      }];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
-    }
+    const newFavoriteRecipes = [...favoriteRecipes, {
+      id: recipe.id,
+      type: recipe.type,
+      nationality: recipe.area?.name,
+      category: recipe.category?.name,
+      alcoholicOrNot: recipe.alcoholic?.name,
+      name: recipe.name,
+      image: recipe.imageUrl,
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
     setIsFavorite((prevState) => !prevState);
   };
 
   const removeFavorite = () => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (type === 'meals') {
-      const newFavoriteRecipes = favoriteRecipes
-        .filter((recipes) => recipes.id !== recipe.idMeal);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
-    } else {
-      const newFavoriteRecipes = favoriteRecipes
-        .filter((recipes) => recipes.id !== recipe.idDrink);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
-    }
+    const newFavoriteRecipes = favoriteRecipes
+      .filter((recipes) => recipes.id !== recipe.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
     setIsFavorite((prevState) => !prevState);
   };
 

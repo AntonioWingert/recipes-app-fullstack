@@ -97,7 +97,7 @@ function RecipeDetails() {
         title={ recipe.name }
         instructions={ recipe.instructions }
         image={ recipe.imageUrl }
-        categoryOrAlcoholic={ recipe.alcoholic }
+        categoryOrAlcoholic={ recipe.alcoholic?.name || recipe.category?.name }
         video={ type === 'meals' ? recipe.videoUrl : null }
       />
       <S.ButtonContainer>
