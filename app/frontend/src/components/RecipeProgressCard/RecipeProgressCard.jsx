@@ -7,7 +7,7 @@ import * as S from './style';
 
 function RecipeProgressCard({
   image, title, categoryOrAlcoholic,
-  ingredients, instructions, measures, verifyIsFinish }) {
+  ingredients, instructions, verifyIsFinish }) {
   const [checkedIngredient, setCheckedIngredient] = useState([]);
 
   const history = useHistory();
@@ -50,22 +50,22 @@ function RecipeProgressCard({
           <label
             key={ index }
             data-testid={ `${index}-ingredient-step` }
-            htmlFor={ ingredient }
+            htmlFor={ ingredient.name }
             style={ { textDecoration: checkedIngredient[index]
               ? 'line-through solid rgb(0, 0, 0)' : '' } }
           >
             <input
               type="checkbox"
-              id={ ingredient }
-              name={ ingredient }
+              id={ ingredient.name }
+              name={ ingredient.name }
               onChange={ () => handleChange(ingredient) }
               checked={ checkedIngredient[index] }
               disabled={ checkedIngredient[index] }
             />
-            {
-              measures[index] === undefined
-                ? `${ingredient}` : `${ingredient} - ${measures[index]}`
-            }
+              {
+                ingredient.measure === undefined
+                  ? `${ingredient.ingredient.name}` : `${ingredient.ingredient.name} - ${ingredient.measure}`
+              }
           </label>
         ))}
       </S.IngredientsContainer>
@@ -78,8 +78,7 @@ RecipeProgressCard.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
   categoryOrAlcoholic: PropTypes.string,
-  ingredients: PropTypes.arrayOf(PropTypes.string),
-  measures: PropTypes.arrayOf(PropTypes.string),
+  ingredients: PropTypes.arrayOf(PropTypes.object),
   instructions: PropTypes.string,
   verifyIsFinish: PropTypes.func.isRequired,
 };

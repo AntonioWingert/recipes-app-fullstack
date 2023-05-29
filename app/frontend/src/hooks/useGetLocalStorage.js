@@ -39,12 +39,12 @@ function useGetLocalStorage(type, id) {
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
       if (type === 'meals') {
         const favoriteMeals = favoriteRecipes
-          .filter((recipes) => recipes.type === 'meal');
+          .filter((recipes) => recipes.type === 'meals');
         const favoriteMealIds = favoriteMeals.map((recipes) => recipes.id);
         if (favoriteMealIds.includes(id)) setIsFavorite(true);
       } else {
         const favoriteDrinks = favoriteRecipes
-          .filter((recipes) => recipes.type === 'drink');
+          .filter((recipes) => recipes.type === 'drinks');
         const favoriteDrinkIds = favoriteDrinks.map((recipes) => recipes.id);
         if (favoriteDrinkIds.includes(id)) setIsFavorite(true);
       }

@@ -18,8 +18,6 @@ function RecipeInProgress() {
   const {
     recipe,
     setRecipeDetail,
-    ingredients,
-    setIngredients,
   } = useRecipes();
 
   const history = useHistory();
@@ -30,24 +28,14 @@ function RecipeInProgress() {
 
   useEffect(() => {
     if (type === 'drinks') {
-      setRecipeDetail(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`, type);
+      setRecipeDetail(`/drinks/${id}`);
       return;
     }
     if (type === 'meals') {
-      setRecipeDetail(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`, type);
+      setRecipeDetail(`/meals/${id}`);
+      return;
     }
   }, []);
-
-  useEffect(() => {
-    const ingredientsValue = Object.entries(recipe)
-      .filter(([key, value]) => key.includes('strIngredient') && value)
-      .map(([, value]) => value);
-    const measures = Object.entries(recipe)
-      .filter(([key, value]) => key.includes('strMeasure') && value)
-      .map(([, value]) => value);
-    const saveIngredients = { ...ingredients, ingredients: ingredientsValue, measures };
-    setIngredients(saveIngredients);
-  }, [recipe]);
 
   useEffect(() => {
     setIsFav(isFavorite);
@@ -96,15 +84,13 @@ function RecipeInProgress() {
           <MdShare />
         </Button>
       </S.ButtonsContainer>
-
       <RecipeProgressCard
-        ingredients={ ingredients.ingredients }
-        measures={ ingredients.measures }
-        key={ recipe.idDrink || recipe.idMeal }
-        title={ recipe.strDrink || recipe.strMeal }
-        instructions={ recipe.strInstructions }
-        image={ recipe.strDrinkThumb || recipe.strMealThumb }
-        categoryOrAlcoholic={ recipe.strAlcoholic || recipe.strCategory }
+        ingredients={ recipe.ingredients }
+        key={ recipe.id }
+        title={ recipe.name }
+        instructions={ recipe.instructions }
+        image={ recipe.imageUrl }
+        categoryOrAlcoholic={ recipe.alcoholic || recipe.category?.name }
         verifyIsFinish={ verifyIsFinish }
       />
       <S.ButtonContainer>

@@ -24,7 +24,7 @@ export default class DrinksService {
     const randomDrink = await prismaClient.recipe.findMany({
       where: {
         id,
-        type: 'Meal',
+        type: 'Drink',
       },
       include: {
         ingredients: true,
