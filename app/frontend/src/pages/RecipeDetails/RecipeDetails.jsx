@@ -18,8 +18,6 @@ function RecipeDetails() {
   const {
     recipe,
     setRecipeDetail,
-    ingredients,
-    setIngredients,
     setRecipes,
   } = useRecipes();
 
@@ -31,27 +29,15 @@ function RecipeDetails() {
   const { startRecipe, setFavorite, removeFavorite } = useSetLocalStorage(type, id);
 
   useEffect(() => {
-    if (type === 'drink') {
-      setRecipeDetail(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`, type);
-      setRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
+    if (type === 'drinks') {
+      setRecipeDetail(`http://localhost:3001/drinks/${id}`);
+      setRecipes('http://localhost:3001/meals/name');
       return;
     }
-    if (type === 'meal') {
-      setRecipeDetail(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`, type);
-      setRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks');
+    if (type === 'meals') {
+      setRecipeDetail(`/meals/${id}`);
     }
   }, []);
-
-  useEffect(() => {
-    const ingredientsValue = Object.entries(recipe)
-      .filter(([key, value]) => key.includes('strIngredient') && value)
-      .map(([, value]) => value);
-    const measures = Object.entries(recipe)
-      .filter(([key, value]) => key.includes('strMeasure') && value)
-      .map(([, value]) => value);
-    const saveIngredients = { ...ingredients, ingredients: ingredientsValue, measures };
-    setIngredients(saveIngredients);
-  }, [recipe]);
 
   useEffect(() => {
     setIsFav(isFavorite);
@@ -82,6 +68,7 @@ function RecipeDetails() {
 
   return (
     <div>
+      {console.log(recipe)}
       <S.ButtonsContainer>
         <Button
           handleClick={ isFav ? removeFav : handleFavorite }
@@ -104,14 +91,14 @@ function RecipeDetails() {
         </Button>
       </S.ButtonsContainer>
       <RecipeCard
-        ingredients={ ingredients.ingredients }
-        measures={ ingredients.measures }
-        key={ recipe.idDrink || recipe.idMeal }
-        title={ recipe.strDrink || recipe.strMeal }
-        instructions={ recipe.strInstructions }
-        image={ recipe.strDrinkThumb || recipe.strMealThumb }
-        categoryOrAlcoholic={ recipe.strAlcoholic || recipe.strCategory }
-        video={ type === 'meals' ? recipe.strYoutube : null }
+        ingredients={ recipe.ingredients }
+        recipe={ recipe }
+        key={ recipe.id }
+        title={ recipe.name }
+        instructions={ recipe.instructions }
+        image={ recipe.imageUrl }
+        categoryOrAlcoholic={ recipe.alcoholic }
+        video={ type === 'meals' ? recipe.videoUrl : null }
       />
       <S.ButtonContainer>
         {isCopy && (

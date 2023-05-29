@@ -17,6 +17,13 @@ export default class MealsController {
     return res.status(200).json(meals);
   };
 
+  public static findById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const idNumber = parseInt(id);
+    const meals = await MealsService.findById(idNumber);
+    return res.status(200).json(meals);
+  };
+
   public static findByFirstLetter = async (req: Request, res: Response) => {
     const { q } = req.query;
     const qCaps = q?.toString().toUpperCase()

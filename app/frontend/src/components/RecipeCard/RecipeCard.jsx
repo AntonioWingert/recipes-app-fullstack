@@ -4,7 +4,7 @@ import * as S from './style';
 
 function RecipeCard({
   image, title, categoryOrAlcoholic,
-  ingredients, measures, instructions,
+  ingredients, instructions,
   video }) {
   return (
     <S.RecipeCardContainer>
@@ -24,11 +24,10 @@ function RecipeCard({
           {ingredients.map((ingredient, index) => (
             <li
               key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
             >
               {
-                measures[index] === undefined
-                  ? `${ingredient}` : `${ingredient} - ${measures[index]}`
+                ingredient.measure === undefined
+                  ? `${ingredient.ingredient.name}` : `${ingredient.ingredient.name} - ${ingredient.measure}`
               }
             </li>
           ))}
@@ -56,8 +55,7 @@ RecipeCard.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
   categoryOrAlcoholic: PropTypes.string,
-  ingredients: PropTypes.arrayOf(PropTypes.string),
-  measures: PropTypes.arrayOf(PropTypes.string),
+  ingredients: PropTypes.arrayOf(PropTypes.object),
   instructions: PropTypes.string,
   video: PropTypes.string,
 };
@@ -67,7 +65,6 @@ RecipeCard.defaultProps = {
   title: '',
   categoryOrAlcoholic: '',
   ingredients: [],
-  measures: [],
   instructions: '',
   video: null,
 };

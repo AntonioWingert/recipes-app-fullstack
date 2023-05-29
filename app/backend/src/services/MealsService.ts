@@ -8,7 +8,30 @@ export default class MealsService {
         type: 'Meal'
       },
       include: {
-        ingredients: true,
+        ingredients: {
+          include: {
+            ingredient: true,
+          }
+        },
+        category: true,
+        area: true,
+    }
+    });
+
+    return meals;
+  }
+
+  static async findById(id: number) {
+    const meals = await prismaClient.recipe.findUnique({
+      where: {
+        id
+      },
+      include: {
+        ingredients: {
+          include: {
+            ingredient: true,
+          }
+        },
         category: true,
         area: true,
     }

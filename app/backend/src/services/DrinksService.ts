@@ -3,10 +3,10 @@ import ApiError from '../utils/ApiError';
 
 export default class DrinksService {
 
-  static async findOneById(id: string) {
+  static async findOneById(id: number) {
     const drink = await prismaClient.recipe.findUnique({
       where: {
-        id: parseInt(id).toString()
+        id
       }
     })
 
@@ -27,7 +27,7 @@ export default class DrinksService {
     return drinks;
   }
 
-  static async findOneRandom(id: string) {
+  static async findOneRandom(id: number) {
     const randomDrink = await prismaClient.recipe.findMany({
       where: {
         id
