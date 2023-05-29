@@ -15,19 +15,19 @@ function RecipesProvider({ children }) {
   });
   const { makeFetch, isLoading, Error } = useFetch();
 
-  const setRecipes = async (url, type) => {
+  const setRecipes = async (url) => {
     const data = await makeFetch(url);
-    setFilterRecipes(data[type]);
+    setFilterRecipes(data);
   };
 
-  const setRecipeDetail = async (url, type) => {
+  const setRecipeDetail = async (url) => {
     const data = await makeFetch(url);
-    setRecipe(...data[type]);
+    setRecipe(...data);
   };
 
-  const setCategoryOnState = async (url, type) => {
+  const setCategoryOnState = async (url) => {
     const data = await makeFetch(url);
-    setCategory(data[type]);
+    setCategory(data);
   };
 
   const values = useMemo(() => ({
