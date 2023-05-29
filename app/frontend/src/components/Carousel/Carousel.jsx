@@ -13,9 +13,9 @@ function Carousel() {
       {filterRecipes.map((recipe, index) => (
         <div key={ index }>
           <RecommendationCard
-            image={ recipe.strMealThumb || recipe.strDrinkThumb }
+            image={ recipe.imageUrl}
             index={ index }
-            title={ recipe.strMeal || recipe.strDrink }
+            title={ recipe.name}
           />
         </div>
       )).slice(0, MAX_LENGTH)}

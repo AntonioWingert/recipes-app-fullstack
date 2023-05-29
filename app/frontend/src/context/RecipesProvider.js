@@ -22,7 +22,7 @@ function RecipesProvider({ children }) {
 
   const setRecipeDetail = async (url) => {
     const data = await makeFetch(url);
-    setRecipe(...data);
+    setRecipe(data);
   };
 
   const setCategoryOnState = async (url) => {
