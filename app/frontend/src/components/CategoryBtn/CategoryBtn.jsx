@@ -10,8 +10,8 @@ function CategoryBtn({ category, type, icon }) {
   const handleClick = () => {
     if (isActive) {
       setIsActive(false);
-      if (type === 'Drink') return setRecipes('/drinks/categories');
-      if (type === 'Meal') return setRecipes('/meals/categories');
+      if (type === 'Drink') return setRecipes('/drinks/name');
+      if (type === 'Meal') return setRecipes('/meals/name');
     }
     setIsActive(true);
     if (type === 'Meal') return setRecipes(`/meals/categories?q=${category}`);
