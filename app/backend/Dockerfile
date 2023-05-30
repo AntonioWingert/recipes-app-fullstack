@@ -26,7 +26,7 @@ RUN npm install
 RUN npx prisma generate
 
 # Sinalize que aplicação expõe a porta 3001
-EXPOSE ${env.PORT}
+EXPOSE $PORT
 
 # Configurar os comandos para iniciar a aplicação de acordo com as boas práticas
 ENTRYPOINT ["npm", "run"]
