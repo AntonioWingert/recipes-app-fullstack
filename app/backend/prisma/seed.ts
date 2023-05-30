@@ -4,6 +4,11 @@ import { PrismaClient } from '@prisma/client'
 const prismaClient = new PrismaClient()
 
 async function main() {
+
+  if (await prismaClient.alcoholic.findFirst()) {
+    return;
+  }
+
   await prismaClient.alcoholic.createMany({ data: seed.alcoholic });
   await prismaClient.area.createMany({ data: seed.area });
   await prismaClient.category.createMany({ data: seed.category });
