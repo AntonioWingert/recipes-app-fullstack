@@ -15,7 +15,7 @@ export default class MealsService {
         },
         category: true,
         area: true,
-    }
+      }
     });
 
     return meals;
@@ -24,6 +24,7 @@ export default class MealsService {
   static async findById(id: number) {
     const meals = await prismaClient.recipe.findUnique({
       where: {
+        // @ts-ignore
         id,
       },
       include: {
@@ -34,7 +35,7 @@ export default class MealsService {
         },
         category: true,
         area: true,
-    }
+      }
     });
 
     return meals;
@@ -50,7 +51,7 @@ export default class MealsService {
         ingredients: true,
         category: true,
         area: true,
-    }
+      }
     });
 
     if (!randomMeal) throw new ApiError(401, 'Invalid ID!');

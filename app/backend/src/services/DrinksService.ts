@@ -65,7 +65,8 @@ export default class DrinksService {
   static async findOneById(id: number) {
     const drink = await prismaClient.recipe.findUnique({
       where: {
-        id
+        // @ts-ignore
+        id,
       },
       include: {
         ingredients: {
