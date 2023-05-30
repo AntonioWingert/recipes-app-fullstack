@@ -7,7 +7,7 @@ export const recipes = [
     areaId: 1,
     tags: 'Sandwich',
     videoUrl: 'https://www.youtube.com/watch?v=VVnZd8A84z4',
-    imageUrl: 'https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe/recipe-image/2017/06/bacon-sandwich.jpg?itok=Z3Q4ZQ8X'
+    imageUrl: 'https://somethingaboutsandwiches.com/wp-content/uploads/2021/09/bacon-sandwich-768x961.jpg'
   },
   {
     type: 'meal',
