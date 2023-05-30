@@ -31,7 +31,7 @@ export default class DrinksController {
   }
 
   static async getRandom(req: Request, res: Response) {
-    const randomId = Math.floor(Math.random() * 7);
+    const randomId = Math.floor(Math.random() * 7) + 6;
     const randomDrink = await DrinksService.findOneRandom(randomId);
 
     return res.status(200).json(randomDrink);
