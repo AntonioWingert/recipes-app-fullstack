@@ -1,4 +1,5 @@
 import 'express-async-errors';
+import cors from 'cors';
 import * as express from 'express';
 import errorMiddleware from './middlewares/error.middleware';
 import routes from './routes';
@@ -9,6 +10,7 @@ class App {
   constructor() {
     this.app = express();
 
+    this.app.use(cors());
     this.config();
     this.app.use(routes);
     this.app.use(errorMiddleware);
