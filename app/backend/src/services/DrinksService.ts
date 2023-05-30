@@ -23,7 +23,8 @@ export default class DrinksService {
   static async findOneRandom(id: number) {
     const randomDrink = await prismaClient.recipe.findMany({
       where: {
-        id: String(id),
+        // @ts-ignore
+        id,
         type: 'Drink',
       },
       include: {
